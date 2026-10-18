@@ -1,0 +1,4 @@
+id,question,gold_answers,is_answerable
+57285ed5ff5b5019007da1b8,Who started the Yuan dynasty?,"['Kublai Khan', 'Kublai Khan', 'Kublai Khan']",True
+56e16182e3433e1400422e29,By what main attribute are computational problems classified utilizing computational complexity theory? ,"['inherent difficulty', 'their inherent difficulty', 'inherent difficulty']",True
+5a7b054521c2de001afe9cd0,How large is the San Joaquin Valley?,[],False
