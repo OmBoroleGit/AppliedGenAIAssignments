@@ -23,7 +23,7 @@ PROMPT_RATIONALES = {
         "without in-context demonstrations."
     ),
     "few_shot": (
-        "Few-shot prompt incorporating 3 answerable and 1 unanswerable examples from the "
+        "Uses the same instructions as zero-shot (so only the examples differ), plus 3 answerable and 1 unanswerable examples from the "
         "training split. Demonstrates the exact expected JSON schema, evidence extraction "
         "format, and the behavior of setting 'answerable: false' when context is insufficient."
     ),
@@ -43,6 +43,7 @@ SYSTEM_PROMPTS = {
     "zero_shot": (
         "You are a document assistant. Answer the question using ONLY the provided context.\n"
         "If the answer cannot be found in the context, mark answerable as false and say 'not in the document'.\n"
+        "The answer must be a SHORT phrase (a few words) copied exactly from the context, not a full sentence.\n"
         "You MUST respond ONLY with a valid JSON object matching this schema:\n"
         '{"answerable": <bool>, "answer": "<exact answer or not in the document>", "evidence": "<exact sentence from context containing proof or empty string>"}'
     ),
@@ -51,6 +52,7 @@ SYSTEM_PROMPTS = {
         "provide strictly verified answers based exclusively on the provided document paragraph.\n"
         "You never speculate, extrapolate, or rely on prior assumptions. If a query is not directly answered "
         "by the document, you acknowledge that fact immediately.\n"
+        "The answer must be a SHORT phrase (a few words) copied exactly from the context, not a full sentence.\n"
         "Always respond in valid JSON format:\n"
         '{"answerable": <bool>, "answer": "<factually verified answer>", "evidence": "<exact supporting sentence>"}'
     ),
@@ -59,11 +61,16 @@ SYSTEM_PROMPTS = {
         "1. GROUNDING: Use ONLY the provided context. Do NOT consult external world knowledge.\n"
         "2. ABSTENTION: If the text does NOT explicitly answer the question, set 'answerable' to false, "
         "'answer' to 'not in the document', and 'evidence' to ''.\n"
-        "3. EVIDENCE: When answerable is true, 'evidence' MUST be the verbatim sentence from the context.\n"
-        "4. FORMAT: Output NOTHING except a single, valid JSON object with keys: answerable, answer, evidence.\n"
-        "5. NO HALLUCINATION: Guessing is strictly penalized."
+        "3. ANSWER: The answer must be a SHORT phrase (a few words) copied exactly from the context.\n"
+        "4. EVIDENCE: When answerable is true, 'evidence' MUST be the verbatim sentence from the context.\n"
+        "5. FORMAT: Output NOTHING except a single, valid JSON object with keys: answerable, answer, evidence.\n"
+        "6. NO HALLUCINATION: Guessing is strictly penalized."
     ),
 }
+
+# Few-shot uses the same instructions as zero-shot; only the 4 worked examples differ.
+# This isolates the effect of the examples themselves.
+SYSTEM_PROMPTS["few_shot"] = SYSTEM_PROMPTS["zero_shot"]
 
 
 # ==============================================================================
