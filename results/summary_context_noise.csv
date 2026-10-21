@@ -1,0 +1,3 @@
+,n_questions,n_answerable,n_unanswerable,EM_overall,F1_overall,EM_answerable,F1_answerable,abstention_accuracy,hallucination_rate,over_abstention_rate,evidence_faithfulness,json_validity,flag_conflicts
+clean (1 paragraph),100.0,50.0,50.0,70.0,73.6,68.0,75.1,72.0,28.0,16.0,82.1,94.0,0.0
+noisy (+2 distractors),100.0,50.0,50.0,62.0,64.6,56.0,61.2,68.0,32.0,24.0,70.4,94.0,0.0

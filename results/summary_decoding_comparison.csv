@@ -1,0 +1,8 @@
+decoding,runs,F1_answerable,hallucination_rate,over_abstention_rate,json_validity,agreement,distinct_answers,F1_std_across_runs
+greedy,2,65.3,20.0,20.0,93.3,100.0,1.0,0.0
+temp_0.3,5,60.5,12.0,24.0,94.7,92.7,1.27,3.08
+temp_0.7,5,48.0,14.7,34.7,94.7,80.7,1.7,2.68
+temp_1.0,5,46.7,18.7,37.3,94.0,75.3,1.97,4.18
+temp_0.7_top_p_0.9,5,50.4,14.7,34.7,94.0,83.3,1.53,1.55
+temp_0.7_top_k_50,5,48.0,14.7,34.7,94.7,80.7,1.7,2.68
+temp_1.0_top_p_0.9,5,46.9,18.7,37.3,94.7,77.3,1.83,3.25

@@ -1,0 +1,65 @@
+question,decoding,run,pred_answer,error_type
+How did the black death make it to the Mediterranean and Europe?,greedy,0,along the Silk Road,partial / over-long span
+"Along with non-governmental and nonstate schools, what is another name for private schools?",greedy,0,non-governmental,wrong answer
+How did the black death make it to the Mediterranean and Europe?,greedy,1,along the Silk Road,partial / over-long span
+"Along with non-governmental and nonstate schools, what is another name for private schools?",greedy,1,non-governmental,wrong answer
+How did the black death make it to the Mediterranean and Europe?,temp_0.3,0,along the Silk Road,partial / over-long span
+"Along with non-governmental and nonstate schools, what is another name for private schools?",temp_0.3,0,non-governmental,wrong answer
+How did the black death make it to the Mediterranean and Europe?,temp_0.3,1,along the Silk Road,partial / over-long span
+"Along with non-governmental and nonstate schools, what is another name for private schools?",temp_0.3,1,non-governmental,wrong answer
+How did the black death make it to the Mediterranean and Europe?,temp_0.3,2,along the Silk Road,partial / over-long span
+"Along with non-governmental and nonstate schools, what is another name for private schools?",temp_0.3,2,non-governmental,wrong answer
+How did the black death make it to the Mediterranean and Europe?,temp_0.3,3,"from there, it was most likely carried by Oriental rat fleas living on the black rats that were regular passengers on merchant ships",partial / over-long span
+"Along with non-governmental and nonstate schools, what is another name for private schools?",temp_0.3,3,non-governmental,wrong answer
+How did the black death make it to the Mediterranean and Europe?,temp_0.3,4,along the Silk Road,partial / over-long span
+"Along with non-governmental and nonstate schools, what is another name for private schools?",temp_0.3,4,non-governmental,wrong answer
+How did the black death make it to the Mediterranean and Europe?,temp_0.7,0,by 1343,wrong answer
+"Along with non-governmental and nonstate schools, what is another name for private schools?",temp_0.7,0,,over-abstention
+How did the black death make it to the Mediterranean and Europe?,temp_0.7,1,reaching Crimea by 1343,wrong answer
+"Along with non-governmental and nonstate schools, what is another name for private schools?",temp_0.7,1,Private schools,partial / over-long span
+How did the black death make it to the Mediterranean and Europe?,temp_0.7,2,along the Silk Road,partial / over-long span
+"Along with non-governmental and nonstate schools, what is another name for private schools?",temp_0.7,2,,over-abstention
+How did the black death make it to the Mediterranean and Europe?,temp_0.7,3,"from there, it was most likely carried by Oriental rat fleas living on the black rats that were regular passengers on merchant ships.",partial / over-long span
+"Along with non-governmental and nonstate schools, what is another name for private schools?",temp_0.7,3,non-governmental,wrong answer
+How did the black death make it to the Mediterranean and Europe?,temp_0.7,4,along the Silk Road,partial / over-long span
+"Along with non-governmental and nonstate schools, what is another name for private schools?",temp_0.7,4,non-governmental,wrong answer
+How did the black death make it to the Mediterranean and Europe?,temp_0.7_top_k_50,0,by 1343,wrong answer
+"Along with non-governmental and nonstate schools, what is another name for private schools?",temp_0.7_top_k_50,0,,over-abstention
+How did the black death make it to the Mediterranean and Europe?,temp_0.7_top_k_50,1,reaching Crimea by 1343,wrong answer
+"Along with non-governmental and nonstate schools, what is another name for private schools?",temp_0.7_top_k_50,1,Private schools,partial / over-long span
+How did the black death make it to the Mediterranean and Europe?,temp_0.7_top_k_50,2,along the Silk Road,partial / over-long span
+"Along with non-governmental and nonstate schools, what is another name for private schools?",temp_0.7_top_k_50,2,,over-abstention
+How did the black death make it to the Mediterranean and Europe?,temp_0.7_top_k_50,3,"from there, it was most likely carried by Oriental rat fleas living on the black rats that were regular passengers on merchant ships.",partial / over-long span
+"Along with non-governmental and nonstate schools, what is another name for private schools?",temp_0.7_top_k_50,3,non-governmental,wrong answer
+How did the black death make it to the Mediterranean and Europe?,temp_0.7_top_k_50,4,along the Silk Road,partial / over-long span
+"Along with non-governmental and nonstate schools, what is another name for private schools?",temp_0.7_top_k_50,4,non-governmental,wrong answer
+How did the black death make it to the Mediterranean and Europe?,temp_0.7_top_p_0.9,0,by 1343,wrong answer
+"Along with non-governmental and nonstate schools, what is another name for private schools?",temp_0.7_top_p_0.9,0,,over-abstention
+How did the black death make it to the Mediterranean and Europe?,temp_0.7_top_p_0.9,1,from there,wrong answer
+"Along with non-governmental and nonstate schools, what is another name for private schools?",temp_0.7_top_p_0.9,1,non-governmental,wrong answer
+How did the black death make it to the Mediterranean and Europe?,temp_0.7_top_p_0.9,2,along the Silk Road,partial / over-long span
+"Along with non-governmental and nonstate schools, what is another name for private schools?",temp_0.7_top_p_0.9,2,,over-abstention
+How did the black death make it to the Mediterranean and Europe?,temp_0.7_top_p_0.9,3,"from there, it was most likely carried by Oriental rat fleas living on the black rats that were regular passengers on merchant ships.",partial / over-long span
+"Along with non-governmental and nonstate schools, what is another name for private schools?",temp_0.7_top_p_0.9,3,non-governmental,wrong answer
+How did the black death make it to the Mediterranean and Europe?,temp_0.7_top_p_0.9,4,along the Silk Road,partial / over-long span
+"Along with non-governmental and nonstate schools, what is another name for private schools?",temp_0.7_top_p_0.9,4,non-governmental,wrong answer
+How did the black death make it to the Mediterranean and Europe?,temp_1.0,0,by 1343,wrong answer
+"Along with non-governmental and nonstate schools, what is another name for private schools?",temp_1.0,0,,over-abstention
+How did the black death make it to the Mediterranean and Europe?,temp_1.0,1,reaching Crimea by 1343,wrong answer
+"Along with non-governmental and nonstate schools, what is another name for private schools?",temp_1.0,1,Private schools,partial / over-long span
+How did the black death make it to the Mediterranean and Europe?,temp_1.0,2,,over-abstention
+"Along with non-governmental and nonstate schools, what is another name for private schools?",temp_1.0,2,,over-abstention
+How did the black death make it to the Mediterranean and Europe?,temp_1.0,3,"from there, it was most likely carried by Oriental rat fleas living on the black rats that were regular passengers on merchant ships.",partial / over-long span
+"Along with non-governmental and nonstate schools, what is another name for private schools?",temp_1.0,3,non-governmental and nonstate,wrong answer
+How did the black death make it to the Mediterranean and Europe?,temp_1.0,4,"along the Silk Road, reaching Crimea",partial / over-long span
+"Along with non-governmental and nonstate schools, what is another name for private schools?",temp_1.0,4,also known as independent schools,partial / over-long span
+How did the black death make it to the Mediterranean and Europe?,temp_1.0_top_p_0.9,0,by 1343,wrong answer
+"Along with non-governmental and nonstate schools, what is another name for private schools?",temp_1.0_top_p_0.9,0,,over-abstention
+How did the black death make it to the Mediterranean and Europe?,temp_1.0_top_p_0.9,1,reaching Crimea by 1343,wrong answer
+"Along with non-governmental and nonstate schools, what is another name for private schools?",temp_1.0_top_p_0.9,1,non-governmental,wrong answer
+How did the black death make it to the Mediterranean and Europe?,temp_1.0_top_p_0.9,2,,over-abstention
+"Along with non-governmental and nonstate schools, what is another name for private schools?",temp_1.0_top_p_0.9,2,,over-abstention
+How did the black death make it to the Mediterranean and Europe?,temp_1.0_top_p_0.9,3,"from there, it was most likely carried by Oriental rat fleas living on the black rats that were regular passengers on merchant ships.",partial / over-long span
+"Along with non-governmental and nonstate schools, what is another name for private schools?",temp_1.0_top_p_0.9,3,non-governmental,wrong answer
+How did the black death make it to the Mediterranean and Europe?,temp_1.0_top_p_0.9,4,along the Silk Road,partial / over-long span
+"Along with non-governmental and nonstate schools, what is another name for private schools?",temp_1.0_top_p_0.9,4,non-governmental,wrong answer

@@ -26,7 +26,8 @@ import pandas as pd
 REQUIRED_KEYS = {"answerable", "answer", "evidence"}
 
 REFUSAL_PATTERN = re.compile(
-    r"unanswerable|not (?:in|found|mentioned|provided|stated)|cannot be answered|no answer",
+    r"^\s*(?:none|n/?a|null)\s*\.?\s*$|unanswerable|cannot be answered|no answer"
+    r"|not (?:explicitly )?(?:in|found|mentioned|provided|stated|specified|given|applicable)",
     re.IGNORECASE,
 )
 
@@ -97,39 +98,81 @@ def _as_bool(value):
     return str(value).strip().lower() in ("true", "1", "yes")
 
 
+def _is_refusal(answer):
+    """A short answer that only says 'not in the document' / 'unanswerable' etc."""
+    answer = str(answer).strip()
+    return bool(answer) and len(answer.split()) <= 8 and bool(REFUSAL_PATTERN.search(answer))
+
+
+def _strict_json(raw):
+    """Read the first complete JSON object in the text (ignores text before/after it)."""
+    start = raw.find("{")
+    if start < 0:
+        return None
+    try:
+        data, _ = json.JSONDecoder().raw_decode(raw[start:])
+        return data if isinstance(data, dict) else None
+    except json.JSONDecodeError:
+        return None
+
+
+def _lenient_fields(raw):
+    """Recover the fields from output that is NOT valid JSON. Three real cases seen in our runs:
+    (1) JSON cut off at the token limit, (2) evidence with unescaped quotes copied from the text,
+    (3) 'answerable: True / answer: ... / evidence: ...' written as plain lines."""
+    flag = re.search(r'"?answerable"?\s*:\s*"?(true|false)"?', raw, re.IGNORECASE)
+    if not flag:
+        return None
+    ans = re.search(r'"answer"\s*:\s*"((?:[^"\\]|\\.)*)"', raw)
+    if not ans:
+        ans = re.search(r'^\s*answer\s*:\s*"?(.*?)"?\s*$', raw, re.IGNORECASE | re.MULTILINE)
+    ev = re.search(r'"evidence"\s*:\s*"(.*)', raw, re.DOTALL)
+    if ev:
+        evidence = re.sub(r'"\s*\}?\s*$', "", ev.group(1)).strip()
+    else:
+        ev = re.search(r'^\s*evidence\s*:\s*"?(.*?)"?\s*$', raw, re.IGNORECASE | re.MULTILINE)
+        evidence = ev.group(1).strip() if ev else ""
+    return {"answerable": flag.group(1).lower() == "true",
+            "answer": ans.group(1).strip() if ans else "", "evidence": evidence}
+
+
 def parse_output(raw):
-    """Turn one raw model output into answerable / answer / evidence / json_valid.
+    """Turn one raw model output into answerable / answer / evidence / json_valid / flag_conflict.
 
-    json_valid is True only if the output contains a JSON object with all three
-    required keys. If the JSON is broken we still try to use the text, so one
-    formatting slip does not hide whether the content was right."""
+    - json_valid: True only for a complete JSON object with all three keys (the FORMAT score).
+    - If the JSON is broken, the fields are still recovered, so the CONTENT is scored on its merits.
+    - The answer text wins over the true/false flag: "answerable": true with answer
+      "not in the document" is a refusal. Such contradictions are counted in flag_conflict.
+    - An empty answer counts as abstaining."""
     raw = "" if raw is None or (isinstance(raw, float) and pd.isna(raw)) else str(raw)
-    match = re.search(r"\{.*\}", raw, flags=re.DOTALL)
-    data = None
-    if match:
-        try:
-            data = json.loads(match.group(0))
-        except json.JSONDecodeError:
-            data = None
 
+    data = _strict_json(raw)
+    json_valid = isinstance(data, dict) and REQUIRED_KEYS.issubset(data.keys())
     if isinstance(data, dict):
-        answer = str(data.get("answer", "") or "").strip()
-        answerable = _as_bool(data.get("answerable", bool(answer)))
-        evidence = str(data.get("evidence", "") or "").strip()
-        if not answerable:
-            answer = ""
-        return {
-            "json_valid": REQUIRED_KEYS.issubset(data.keys()),
-            "pred_answerable": answerable,
-            "pred_answer": answer,
-            "evidence": evidence,
-        }
+        fields = {"answerable": _as_bool(data.get("answerable", bool(data.get("answer")))),
+                  "answer": str(data.get("answer", "") or "").strip(),
+                  "evidence": str(data.get("evidence", "") or "").strip()}
+    else:
+        fields = _lenient_fields(raw)
 
-    # Fallback: no usable JSON. Treat the free text as the answer unless it refuses.
-    text = raw.strip()
-    if not text or REFUSAL_PATTERN.search(text):
-        return {"json_valid": False, "pred_answerable": False, "pred_answer": "", "evidence": ""}
-    return {"json_valid": False, "pred_answerable": True, "pred_answer": text, "evidence": ""}
+    if fields is None:
+        # Plain free text (e.g. the baseline): the text is the answer unless it refuses.
+        text = raw.strip()
+        refused = not text or bool(REFUSAL_PATTERN.search(text))
+        return {"json_valid": False, "pred_answerable": not refused,
+                "pred_answer": "" if refused else text, "evidence": "", "flag_conflict": False}
+
+    flag, answer = fields["answerable"], fields["answer"]
+    says_refusal = _is_refusal(answer) or not answer
+    if flag and says_refusal:          # "true" but the answer refuses -> abstain
+        answerable, conflict = False, True
+    elif not flag and answer and not REFUSAL_PATTERN.search(answer):   # "false" but a real answer is given -> trust the flag
+        answerable, conflict = False, True
+    else:
+        answerable, conflict = flag, False
+    return {"json_valid": json_valid, "pred_answerable": answerable,
+            "pred_answer": answer if answerable else "", "evidence": fields["evidence"],
+            "flag_conflict": conflict}
 
 
 def parse_outputs(df):
@@ -203,7 +246,8 @@ def _pct(series):
 
 
 def evaluate(df):
-    """Headline numbers (all in %) for one experiment."""
+    """Headline numbers (all in %) for one experiment.
+    flag_conflicts = outputs whose true/false flag contradicts their own answer text."""
     s = score_rows(df)
     ans = s[s["is_answerable"]]
     una = s[~s["is_answerable"]]
@@ -220,6 +264,7 @@ def evaluate(df):
         "over_abstention_rate": _pct(~ans["pred_answerable"].astype(bool)),
         "evidence_faithfulness": _pct(s["evidence_ok"]),
         "json_validity": _pct(s["json_valid"]),
+        "flag_conflicts": _pct(s["flag_conflict"]),
     }
 
 
@@ -255,6 +300,7 @@ def variability(df, setting_col="decoding", run_col="run"):
             "runs": g[run_col].nunique() if run_col in g else 1,
             "F1_answerable": m["F1_answerable"],
             "hallucination_rate": m["hallucination_rate"],
+            "over_abstention_rate": m["over_abstention_rate"],
             "json_validity": m["json_validity"],
             "agreement": round(100 * agreement, 1),
             "distinct_answers": round(distinct, 2),
