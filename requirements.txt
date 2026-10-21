@@ -1,0 +1,10 @@
+# Colab already has torch. Lower bounds only (no hard pins) so we do not fight Colab's preinstalled versions.
+transformers>=4.46
+accelerate>=1.0
+datasets>=3.0
+evaluate>=0.4
+pydantic>=2.0
+pandas
+numpy
+tqdm
+matplotlib
