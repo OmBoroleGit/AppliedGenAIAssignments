@@ -1,0 +1,6 @@
+comparison,F1 difference,95% CI,P(diff > 0),only first correct,only second correct,McNemar p
+few-shot prompt vs baseline prompt,14.5,"[7.0, 21.8]",1.0,58,17,0.0
+few-shot alone vs + validator (E7),3.0,"[-0.1, 6.3]",0.971,5,3,0.7266
+fuzzy evidence vs strict validator,1.7,"[-0.7, 4.3]",0.919,2,2,1.0
+few-shot alone vs final harness,1.2,"[-0.8, 3.5]",0.856,3,1,0.625
+1.5B + harness vs 3B without,3.2,"[-3.2, 9.6]",0.839,28,19,0.243

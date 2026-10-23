@@ -1,5 +1,5 @@
 """
-evaluate.py  -  Group 7 SQuAD v2 project, shared evaluation (owner: Dolsy)
+evaluate.py  -  Group 7 SQuAD v2 project, shared evaluation
 
 Everyone saves experiment results as a CSV with the agreed columns:
     id, question, context, gold_answers, is_answerable, prompt_variant,

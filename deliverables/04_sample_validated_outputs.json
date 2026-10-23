@@ -1,0 +1,110 @@
+[
+  {
+    "question": "Who started the Yuan dynasty?",
+    "gold_answers": [
+      "Kublai Khan",
+      "Kublai Khan",
+      "Kublai Khan"
+    ],
+    "attempts": 1,
+    "first_attempt_errors": [],
+    "validated_output": {
+      "answerable": true,
+      "answer": "Kublai Khan",
+      "evidence": "The Yuan dynasty (Chinese: 元朝; pinyin: Yuán Cháo), officially the Great Yuan (Chinese: 大元; pinyin: Dà Yuán; Mongolian: Yehe Yuan Ulus[a]), was the empire or ruling dynasty of China established by Kublai Khan, leader of the Mongolian Borjigin clan.",
+      "confidence": 0.9673
+    }
+  },
+  {
+    "question": "By what main attribute are computational problems classified utilizing computational complexity theory? ",
+    "gold_answers": [
+      "inherent difficulty",
+      "their inherent difficulty",
+      "inherent difficulty"
+    ],
+    "attempts": 1,
+    "first_attempt_errors": [],
+    "validated_output": {
+      "answerable": true,
+      "answer": "inherent difficulty",
+      "evidence": "Computational complexity theory is a branch of the theory of computation in theoretical computer science that focuses on classifying computational problems according to their inherent difficulty, and relating those classes to each other.",
+      "confidence": 0.9278
+    }
+  },
+  {
+    "question": "What is the largest city the Rhine runs through? ",
+    "gold_answers": [
+      "Cologne, Germany",
+      "Cologne, Germany",
+      "Cologne"
+    ],
+    "attempts": 1,
+    "first_attempt_errors": [],
+    "validated_output": {
+      "answerable": true,
+      "answer": "Cologne",
+      "evidence": "The biggest city on the river Rhine is Cologne, Germany with a population of more than 1,050,000 people.",
+      "confidence": 0.9536
+    }
+  },
+  {
+    "question": "How large is the San Joaquin Valley?",
+    "gold_answers": [],
+    "attempts": 1,
+    "first_attempt_errors": [],
+    "validated_output": {
+      "answerable": false,
+      "answer": "",
+      "evidence": "",
+      "confidence": 0.5116
+    }
+  },
+  {
+    "question": "What did the concept hope to achieve?",
+    "gold_answers": [],
+    "attempts": 1,
+    "first_attempt_errors": [],
+    "validated_output": {
+      "answerable": true,
+      "answer": "fault-tolerant, efficient routing method",
+      "evidence": "Starting in the late 1950s, American computer scientist Paul Baran developed the concept Distributed Adaptive Message Block Switching with the goal to provide a fault-tolerant, efficient routing method for telecommunication messages as part of a research program at the RAND Corporation, funded by the US Department of Defense.",
+      "confidence": 0.8204
+    }
+  },
+  {
+    "question": "Along with non-governmental and nonstate schools, what is another name for private schools?",
+    "gold_answers": [
+      "independent",
+      "independent schools",
+      "independent schools"
+    ],
+    "attempts": 2,
+    "first_attempt_errors": [
+      [
+        "R1: no valid JSON object found in the reply"
+      ]
+    ],
+    "validated_output": {
+      "answerable": false,
+      "answer": "",
+      "evidence": "",
+      "confidence": 0.8555
+    }
+  },
+  {
+    "question": "What organization was responsible for setting up the IPCC?",
+    "gold_answers": [],
+    "attempts": 2,
+    "first_attempt_errors": [
+      [
+        "R5: evidence is not an exact quote from the paragraph"
+      ]
+    ],
+    "validated_output": {
+      "answerable": false,
+      "answer": "",
+      "evidence": "The IPCC is a scientific intergovernmental body under the auspices of the United Nations, set up at the request of member governments.",
+      "confidence": 0.9551
+    }
+  }
+]

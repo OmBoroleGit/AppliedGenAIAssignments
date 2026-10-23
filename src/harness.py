@@ -1,6 +1,6 @@
-"""Harness extensions + ablation support (owner: Dolsy).
+"""Harness extensions + ablation support.
 
-Om's final system (E7) = few-shot prompt -> model -> Om's validator (R1-R7) -> one retry -> confidence.
+The final system (E7) = few-shot prompt -> model -> validator (R1-R7) -> one retry -> confidence.
 That is already a small harness: a SENSOR (the validator) and a FEEDBACK LOOP (the retry).
 The E7 results showed what it costs: compared with the few-shot prompt alone it fixed 3
 hallucinations but turned 12 answerable questions into refusals (F1 77.0 -> 74.0). Two causes:
@@ -16,7 +16,7 @@ This module adds the harness parts below, each with an on/off switch so the abla
   SENSOR  echo_check       - reject answers that only repeat words of the question (R8)
   LOOP    neutral_feedback - tell the model WHAT to fix, without nudging it to abstain
   CONTROL confidence threshold (applied after the run; chosen on separate calibration data)
-It reuses Om's validator, confidence and tool code; nothing in his modules is changed.
+It reuses the validator, confidence and tool code (schema.py, confidence.py, tools.py); nothing in those modules is changed.
 """
 from __future__ import annotations
 
@@ -33,7 +33,7 @@ from . import tools
 # ------------------------------------------------------------------ config
 @dataclass
 class HarnessConfig:
-    validate: bool = True            # Om's validator R1-R7 (False = raw model output, no harness)
+    validate: bool = True            # validator R1-R7 from schema.py (False = raw model output, no harness)
     max_retries: int = 1
     fuzzy_evidence: bool = False
     echo_check: bool = False
@@ -90,7 +90,7 @@ def evidence_coverage(evidence: str, context: str, min_run: int = 8) -> float:
 
 
 def check(raw: str, context: str, question: str, cfg: HarnessConfig):
-    """Om's validator, then the harness adjustments. Returns (parsed, errors, warnings)."""
+    """The schema.py validator, then the harness adjustments. Returns (parsed, errors, warnings)."""
     vr = validate_output(raw, context)
     errors, warnings = list(vr.errors), list(vr.warnings)
     if cfg.fuzzy_evidence and vr.parsed is not None:
@@ -111,7 +111,7 @@ def _as_gen(res) -> Dict[str, Any]:
 
 def answer_harness(question: str, context: str, build_messages: Callable, gen_fn: Callable,
                    cfg: HarnessConfig, **gen_kwargs) -> Dict[str, Any]:
-    """Same return format as Om's schema.answer_json (so runlog.make_row works), plus a trace."""
+    """Same return format as schema.answer_json (so runlog.make_row works), plus a trace."""
     trace: Dict[str, Any] = {"config": asdict(cfg), "removed_by_guard": [], "attempts": []}
     if cfg.input_guard:
         context, removed = guard_injection(context)
@@ -157,8 +157,8 @@ def answer_harness(question: str, context: str, build_messages: Callable, gen_fn
 
 def answer_with_retrieval(question: str, build_messages: Callable, gen_fn: Callable, cfg: HarnessConfig,
                           top_k: int = 3, **gen_kwargs) -> Dict[str, Any]:
-    """Tool mode: the model decides on the tool call (Om's TOOL_SYSTEM_PROMPT and parser), Python runs
-    Om's retrieve_context, and the FINAL answer uses the same few-shot prompt and harness as paragraph
+    """Tool mode: the model decides on the tool call (tools.TOOL_SYSTEM_PROMPT and parser), Python runs
+    tools.retrieve_context, and the FINAL answer uses the same few-shot prompt and harness as paragraph
     mode - so tool mode and paragraph mode differ only in where the context comes from."""
     msgs = [{"role": "system", "content": tools.TOOL_SYSTEM_PROMPT}, {"role": "user", "content": f"Question: {question}"}]
     first = _as_gen(gen_fn(msgs, **gen_kwargs))["text"]

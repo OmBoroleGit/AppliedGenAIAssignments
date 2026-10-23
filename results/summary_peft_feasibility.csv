@@ -1,0 +1,5 @@
+rank r,matrices adapted,trainable parameters,% of model,adapter size (fp16)
+8,"q_proj, v_proj","1,089,536",0.071%,2.2 MB
+8,all 7 linear layers,"9,232,384",0.598%,18.5 MB
+16,"q_proj, v_proj","2,179,072",0.141%,4.4 MB
+16,all 7 linear layers,"18,464,768",1.196%,36.9 MB

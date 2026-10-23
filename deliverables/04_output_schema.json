@@ -1,0 +1,51 @@
+{
+  "model_output_schema": {
+    "properties": {
+      "answerable": {
+        "title": "Answerable",
+        "type": "boolean"
+      },
+      "answer": {
+        "default": "",
+        "title": "Answer",
+        "type": "string"
+      },
+      "evidence": {
+        "default": "",
+        "title": "Evidence",
+        "type": "string"
+      },
+      "confidence": {
+        "anyOf": [
+          {
+            "maximum": 1.0,
+            "minimum": 0.0,
+            "type": "number"
+          },
+          {
+            "type": "null"
+          }
+        ],
+        "default": null,
+        "title": "Confidence"
+      }
+    },
+    "required": [
+      "answerable"
+    ],
+    "title": "AnswerOutput",
+    "type": "object"
+  },
+  "validation_rules": {
+    "R1": "reply contains a parseable JSON object",
+    "R2": "answerable/answer/evidence present with the right types",
+    "R3": "confidence, if present, within [0, 1]",
+    "R4": "answerable=true -> answer and evidence non-empty",
+    "R5": "answerable=true -> evidence occurs in the paragraph (final system: >= 90% character alignment)",
+    "R6": "answerable=false -> answer empty ('not in the document' normalised to '')",
+    "R7": "answerable=true -> answer is not a refusal phrase",
+    "R8": "answer must not only repeat words of the question (ablation row D)"
+  },
+  "retry_policy": "on failure the model sees its own error list and answers again; if still invalid the system abstains",
+  "confidence": "added by the system: geometric-mean probability of the decision tokens (src/confidence.py)"
+}

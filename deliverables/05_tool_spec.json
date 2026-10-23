@@ -1,0 +1,56 @@
+{
+  "name": "retrieve_context",
+  "description": "Search a library of Wikipedia passages (SQuAD articles) with BM25 and return the passages most relevant to the question.",
+  "input_schema": {
+    "type": "object",
+    "properties": {
+      "question": {
+        "type": "string",
+        "description": "search query, normally the user question"
+      },
+      "top_k": {
+        "type": "integer",
+        "minimum": 1,
+        "maximum": 5,
+        "default": 3
+      }
+    },
+    "required": [
+      "question"
+    ]
+  },
+  "output_schema": {
+    "type": "object",
+    "properties": {
+      "passages": {
+        "type": "array",
+        "items": {
+          "type": "object",
+          "properties": {
+            "passage_id": {
+              "type": "integer"
+            },
+            "title": {
+              "type": "string"
+            },
+            "text": {
+              "type": "string"
+            },
+            "score": {
+              "type": "number"
+            }
+          },
+          "required": [
+            "passage_id",
+            "title",
+            "text",
+            "score"
+          ]
+        }
+      }
+    },
+    "required": [
+      "passages"
+    ]
+  }
+}
