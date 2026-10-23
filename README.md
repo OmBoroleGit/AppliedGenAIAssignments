@@ -5,7 +5,7 @@ confidence and a BM25 retrieval tool. Submission: 24 Oct.
 
 ## Run in Colab (Runtime > Change runtime type > T4 GPU)
 Open a notebook from `notebooks/` in Colab (File > Open notebook > GitHub). Each notebook's first cell clones this repo
-and installs `requirements.txt`. Order for the full system: `04_structured_tools.ipynb`, then `05_final_system.ipynb`
+and installs `requirements.txt`. Order: `01` → `02` → `03` → `04_structured_tools.ipynb` → `05_final_system.ipynb` → `06_harness_ablation.ipynb`
 (Runtime > Restart and run all). Seed 42, frozen `data/eval_set.jsonl`, greedy decoding, `max_new_tokens=128`.
 
 ## Layout
@@ -22,7 +22,9 @@ and installs `requirements.txt`. Order for the full system: `04_structured_tools
 | `src/runlog.py` | Om | CSV columns, eval-set loader, `make_build_messages()` (uses `prompts.build_prompt`) |
 | `notebooks/04_structured_tools.ipynb` | Om | E4 structured output, confidence, E5 tool |
 | `notebooks/05_final_system.ipynb` | Om | E7 final integrated system + demo |
-| `tests/` | Om | offline unit tests (no GPU): `python -m unittest discover tests -v` |
+| `tests/` | Om, Dolsy | offline unit tests (no GPU): `python -m unittest discover tests -v` |
+| `src/harness.py`, `tests/test_harness.py` | Dolsy | harness extensions on Om's modules: fuzzy evidence check, neutral feedback, echo check, injection guard, confidence threshold, tool mode with the few-shot prompt |
+| `notebooks/06_harness_ablation.ipynb` | Dolsy | ablation: what each harness part adds; 3B comparison; tool-mode fix; injection attacks |
 
 ## Output format
 `{"answerable": true, "answer": "1876", "evidence": "Bell patented the telephone in 1876.", "confidence": 0.82}`
