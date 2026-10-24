@@ -1,4 +1,4 @@
-"""retrieve_context tool + tool-calling loop (owner: Om) - experiment E5.
+"""retrieve_context tool + tool-calling loop - experiment E5.
 
 Flow (brief section 5):  user request -> LLM -> tool decision -> tool result -> final answer
   1. Model gets the question (and maybe a paragraph) and replies with EITHER

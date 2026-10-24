@@ -1,4 +1,4 @@
-"""Helpers so every experiment writes the same CSV columns (owner: Om)."""
+"""Helpers so every experiment writes the same CSV columns."""
 from __future__ import annotations
 
 import json
@@ -8,12 +8,12 @@ from typing import Any, Dict, List
 COLUMNS = ["id", "question", "context", "gold_answers", "is_answerable", "prompt_variant",
            "decoding", "raw_output", "pred_answerable", "pred_answer", "evidence",
            "confidence", "json_valid"]
-# extra columns Om's experiments add (evaluate.py ignores them)
+# extra columns added by notebooks 04-06 (evaluate.py ignores them)
 EXTRA = ["attempts", "json_valid_first_attempt", "confidence_source", "errors", "warnings"]
 
 
 def load_eval_set(path: str = "data/eval_set.jsonl") -> List[Dict[str, Any]]:
-    """Read Harshal's frozen eval set. Tolerates answers as list or SQuAD dict."""
+    """Read the frozen eval set (built in notebook 01). Tolerates answers as list or SQuAD dict."""
     rows = []
     for line in Path(path).read_text(encoding="utf-8").splitlines():
         if not line.strip():

@@ -1,4 +1,4 @@
-"""JSON schema, validator and retry (owner: Om) - experiment E4.
+"""JSON schema, validator and retry - experiment E4.
 
 Output contract (locked):
     {"answerable": bool, "answer": str, "evidence": str, "confidence": float 0-1}
@@ -55,7 +55,7 @@ DEFAULT_SYSTEM_PROMPT = (
 
 
 def build_default_messages(context: str, question: str) -> List[Dict[str, str]]:
-    """Minimal constraint prompt used for E4 on its own (Pranil's variants replace it in E7)."""
+    """Minimal constraint prompt used for E4 on its own (the notebook 02 prompt variants replace it in E7)."""
     return [
         {"role": "system", "content": DEFAULT_SYSTEM_PROMPT},
         {"role": "user", "content": f"Paragraph:\n{context}\n\nQuestion: {question}"},

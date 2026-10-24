@@ -1,4 +1,4 @@
-"""Confidence from the model's own token probabilities (owner: Om).
+"""Confidence from the model's own token probabilities.
 
 Method (explain this in the demo):
   The JSON the model writes contains two *decisions*:

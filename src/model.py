@@ -1,9 +1,9 @@
-"""Shared model wrapper (owner: Om).
+"""Shared model wrapper.
 
 Contract agreed by the group:
     generate(prompt, temperature=0, top_p=None, top_k=None) -> str
 
-Extras used by Om's pieces (do not break the contract above):
+Extras used by the structured-output and tool modules (do not break the contract above):
     generate_with_logprobs(...) -> dict(text, tokens, logprobs)   # for confidence
 `prompt` may be a plain string (becomes one user message) or a list of chat
 messages [{"role": "...", "content": "..."}] (needed for the tool loop).
